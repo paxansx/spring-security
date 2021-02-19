@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update user</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/admin/update}" th:object="${user}">
+    <label for="id">Id</label>
+    <input type="text" th:field="*{id}" id="id"readonly/>
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <label for="password">Password</label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <br/>
+    <label for="roles">Select roles</label>
+    <br/>
+    <select id="roles" multiple size="2" name="role" th:required="true" class="from-control">
+        <option
+                th:each="role:${allRoles}"
+                th:value="${role.getAuthority()}"
+                th:text="${role.getAuthority()}"
+                th:selected="${role.getAuthority()=='ROLE_ADMIN'}">
+        </option>
+    </select>
+    <br/>
+    <input type="submit" value="Update user"/>
+</form>
+<br/>
+<br/>
+<a href="#" th:href="@{/logout}">Log Out</a>
+
+</body>
+</html>

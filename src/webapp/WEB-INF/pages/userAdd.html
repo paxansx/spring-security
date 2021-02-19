@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/admin/add}" th:object="${newUser}">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <label for="password">Password</label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <br/>
+    <label for="roles">Select roles</label>
+    <br/>
+
+    <select id="roles" multiple size="2" name="role" th:required="true" class="from-control">
+        <option
+                th:each="role:${allRoles}"
+                th:value="${role.getAuthority()}"
+                th:text="${role.getAuthority()}"
+                th:selected="${role.getAuthority()=='ROLE_ADMIN'}">
+        </option>
+    </select>
+    <input type="submit" value="Save user"/>
+</form>
+<br/>
+<br/>
+<a href="#" th:href="@{/logout}">Log Out</a>
+
+</body>
+</html>
